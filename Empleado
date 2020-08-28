@@ -1,0 +1,161 @@
+package gerencia_santa_fe;
+
+//Importaciones
+import java.util.*;
+import javax.swing.*;
+
+//Clase con atributos, constructores y operaciones
+public class Empleado {
+
+    //Atributos
+    private int cédula;
+    private String nombre;
+    private String departamento;
+    private String posición;
+    private int salario;
+
+    //Constructores
+    public Empleado() {
+    }
+
+    public Empleado(String nombre, int cédula, String departamento, String posición, int salario) {
+        this.cédula = cédula;
+        this.nombre = nombre;
+        this.departamento = departamento;
+        this.posición = posición;
+        this.salario = salario;
+    }
+
+    //Operaciones getters y setters
+    public int getCédula() {
+        return cédula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getPosición() {
+        return posición;
+    }
+
+    public void setPosición(String posición) {
+        this.posición = posición;
+    }
+
+    public int getSalario() {
+        return salario;
+    }
+
+    public void setSalario(int salario) {
+        this.salario = salario;
+    }
+    
+    //Programa principal
+    public static void main (String[] args) {
+        
+        //Declarar variables
+        int cédula = 0,salario = 0;
+        String nombre = null, departamento = null, posición = null, menu;
+        String opciones[] = {"Agregar empleado", "Mostrar datos de un empleado", "Sumar salarios de empleados según departamento", 
+            "Contar cantidad de empleados según posición", "Salir"};
+        ArrayList<Empleado> listaEmpleados= new ArrayList<>();        
+                
+        //menu principal de opciones
+        do {                        
+            menu = (String) JOptionPane.showInputDialog(null, "Seleccione una opción", "Menú Principal", JOptionPane.QUESTION_MESSAGE,
+                    null, opciones, opciones[0]);
+            
+            //Switch para opciones            
+            switch (menu) {
+                
+                case "Agregar empleado": 
+                    //Leer datos de un empleado, crear un objeto y agregarlo a la lista
+                    nombre = JOptionPane.showInputDialog("Ingrese el nombre del empleado:").toUpperCase();
+                    cédula = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cédula del empleado:"));            
+                    departamento = JOptionPane.showInputDialog("Ingrese el nombre del departamento del empleado:").toUpperCase();
+                    posición = JOptionPane.showInputDialog("Ingrese la posición/puesto del empleado:").toUpperCase();
+                    salario = Integer.parseInt(JOptionPane.showInputDialog("Ingrese salario del empleado:"));
+
+                    Empleado empleado = new Empleado(nombre, cédula, departamento, posición, salario);
+
+                    try {
+                        listaEmpleados.add(empleado);
+                        JOptionPane.showMessageDialog(null, "Se guardo el empleado correctamente.\n" + "Ahora hay " +
+                                listaEmpleados.size() + " empleados guardados.");
+                    }
+                    catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "No se pudo guardar el empleado correctamente.\n" + "Intente de nuevo.");
+                    }
+                    break;
+                    
+                case "Mostrar datos de un empleado": 
+                    //Buscar empleado a partir de la cedula
+                    int busqueda = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cédula del empleado:"));
+                    String resultado = null;
+                    
+                    for(int i = 0; i<listaEmpleados.size(); i++) {
+                        
+                        if(listaEmpleados.get(i).getCédula()== busqueda) {
+                           
+                            resultado = "Nombre: " + listaEmpleados.get(i).getNombre() + "\nCedúla: "
+                                   +busqueda+ "\nNombre del departamento del empleado: " + listaEmpleados.get(i).getDepartamento() +
+                                   "\nPosición del empleado: " +listaEmpleados.get(i).getPosición()+ "\nSalario del empleado: " +
+                                   listaEmpleados.get(i).getSalario() + " $.";                                                                           
+                        } //Fin de if
+                        
+                    } //Fin de for
+                    JOptionPane.showMessageDialog(null, "El resultado de la busqueda es...\n\n" + resultado);
+                    break;
+               
+                case "Sumar salarios de empleados según departamento":
+                    //Suma salario
+                    String busqueda1 = JOptionPane.showInputDialog("Ingrese el nombre del departamento:").toUpperCase();
+                    int suma = 0;
+
+                    for(int i = 0; i<listaEmpleados.size(); i++) {
+                        
+                        if(listaEmpleados.get(i).getDepartamento().equals(busqueda1)) {                           
+                           suma += listaEmpleados.get(i).getSalario();                                                                           
+                        } //Fin de if
+                        
+                    } //Fin de for
+                    JOptionPane.showMessageDialog(null, "La suma de los salarios de empleados en el departamento " + busqueda1 + " es de: \n"
+                           +suma+ " $.");
+                    break;
+
+                case "Contar cantidad de empleados según posición":
+                    //Suma cantidad de empleados
+                    String busqueda2 = JOptionPane.showInputDialog("Ingrese el nombre de la posición/puesto:").toUpperCase();
+                    int suma1 = 0;
+                    
+                    for(int i = 0; i<listaEmpleados.size(); i++) {
+                        
+                        if(listaEmpleados.get(i).getPosición().equals(busqueda2)) {                           
+                           suma1 += 1;                                                                                                      
+                        } //Fin de if
+                        
+                    } //Fin de for
+                    JOptionPane.showMessageDialog(null, "La cantidad de empleados en el puesto " + busqueda2 + " es de: \n"
+                           +suma1+ " empleados.");
+                    break;
+                    
+            } //Fin de switch
+            
+        } while(!"Salir".equals(menu));
+
+    } //Fin de main
+    
+} //Fin de clase Empleado
