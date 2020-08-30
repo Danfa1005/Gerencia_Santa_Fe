@@ -4,7 +4,7 @@ package gerencia_santa_fe;
 import java.util.*;
 import javax.swing.*;
 
-//Clase con atributos, constructores y operaciones
+//Clase con atributos, constructores, operaciones y programa principal
 public class Empleado {
 
     //Atributos
