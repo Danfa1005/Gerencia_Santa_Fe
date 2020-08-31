@@ -81,7 +81,8 @@ public class Empleado {
             //Switch para opciones            
             switch (menu) {
                 
-                case "Agregar empleado": 
+                case "Agregar empleado":
+                    try {
                     //Leer datos de un empleado, crear un objeto y agregarlo a la lista
                     nombre = JOptionPane.showInputDialog("Ingrese el nombre del empleado:").toUpperCase();
                     cédula = Integer.parseInt(JOptionPane.showInputDialog("Ingrese cédula del empleado:"));            
@@ -90,15 +91,14 @@ public class Empleado {
                     salario = Integer.parseInt(JOptionPane.showInputDialog("Ingrese salario del empleado:"));
 
                     Empleado empleado = new Empleado(nombre, cédula, departamento, posición, salario);
-
-                    try {
+                  
                         listaEmpleados.add(empleado);
                         JOptionPane.showMessageDialog(null, "Se guardo el empleado correctamente.\n" + "Ahora hay " +
                                 listaEmpleados.size() + " empleados guardados.");
-                    }
+                    } //Fin de try
                     catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "No se pudo guardar el empleado correctamente.\n" + "Intente de nuevo.");
-                    }
+                    } //Fin de catch
                     break;
                     
                 case "Mostrar datos de un empleado": 
